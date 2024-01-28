@@ -1,6 +1,7 @@
 package com.yasemin.dto.response;
 
 import com.yasemin.utility.EStatus;
+import com.yasemin.utility.EUserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class RegisterResponseDto {
     String surname;
     String email;
     EStatus status;
+    EUserType userType;
 }

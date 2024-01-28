@@ -8,6 +8,7 @@ import com.yasemin.entity.User;
 import com.yasemin.mapper.UserMapper;
 import com.yasemin.repository.UserRepository;
 import com.yasemin.utility.EStatus;
+import com.yasemin.utility.EUserType;
 import com.yasemin.utility.ICrudService;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.control.MappingControl;
@@ -126,8 +127,14 @@ public class UserService implements ICrudService<User,Long> {
 
     public RegisterResponseDto registerMapper(RegisterRequestDto dto) {
         User user =UserMapper.INSTANCE.fromRegisterRequestDtoToUser(dto);
+        if (userRepository.findByEmail(user.getEmail()).isPresent())
+            throw new RuntimeException("Email already exists");
         if (user.getPassword().equals(user.getRepassword()) || user.getPassword().isBlank())
             throw new RuntimeException("Passwords do not match");
+        if (user.getEmail().equals("ba.admin@email.com")){
+            user.setStatus(EStatus.ACTIVE);
+            user.setUserType(EUserType.ADMIN);
+        }
         userRepository.save(user);
         return UserMapper.INSTANCE.fromUserToRegisterResponseDto(user);
     }
