@@ -78,6 +78,14 @@ public class UserController {
     public User findByEmail(String email) {
         return userService.findByEmail(email);
     }
+    @GetMapping("find-password-by-length")
+    public List<User> findPasswordByLength(int length) {
+        return userService.findPasswordByLength(length);
+    }
+    @GetMapping("find-all-email-contains")
+    public List<User> findAllEmailContains(String endsWith) {
+        return userService.findAllEmailContains(endsWith);
+    }
 
 
 }

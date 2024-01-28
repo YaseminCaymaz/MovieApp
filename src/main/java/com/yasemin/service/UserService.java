@@ -167,4 +167,18 @@ public class UserService implements ICrudService<User,Long> {
             throw new NullPointerException("User not found");
         return user.get();
     }
+
+    public List<User> findPasswordByLength(int length) {
+        List<User> users = userRepository.findPasswordByLength(length);
+        if (users.isEmpty())
+            throw new NullPointerException("Users not found");
+        return users;
+    }
+
+    public List<User> findAllEmailContains(String endsWith) {
+        List<User> users = userRepository.findAllEmailByEndsWith(endsWith);
+        if (users.isEmpty())
+            throw new NullPointerException("Users not found");
+        return users;
+    }
 }
